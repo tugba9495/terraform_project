@@ -8,6 +8,7 @@ private_subnet_cidr_1     = "10.0.11.0/24"
 private_subnet_cidr_2     = "10.0.12.0/24"
 private_subnet_cidr_3     = "10.0.13.0/24"
 route_cidr                = "0.0.0.0/0"
+route_for_private_route   = "0.0.0.0/0"
 
 
 } 
