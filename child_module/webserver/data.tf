@@ -22,6 +22,6 @@ data "aws_ami" "amazon_linux_2023_ami" {
         name = "tag:Name"
         values = ["public_subnet_1"]
     }
-
    
  }
+ 

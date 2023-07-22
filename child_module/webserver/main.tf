@@ -9,10 +9,42 @@ resource "aws_instance" "wordpress_server_instance" {
     {
         Name = "wordpress_server_instance"
     }
-        
-
    
     )
   }
+  resource "aws_security_group" "wordpress-sg" {
+    name = "allow_ssh_for_wordpress_sg"
+    description = "open ports 22 to your local ip"
+    # vpc_id = data.terraform_remote_state.vpc_id.outputs.vpc_id
+
+  }
+  resource "aws_security_group_rule" "port_22_open" {
+    
+    type = "ingress"
+    from_port = var.aws_security_group_rule_from_port_22
+    to_port = var.aws_security_group_rule_to_port_22
+    protocol = "tcp"
+    cidr_blocks = var.cidr_block_for_ingress_security_group_22
+    security_group_id = aws_security_group.wordpress-sg.id
+  }
+  resource "aws_security_group_rule" "port_80_open" {
+    
+    type = "ingress"
+    from_port = var.aws_security_group_rule_from_80
+    to_port = var.aws_security_group_rule_to_port_80
+    protocol = "tcp"
+    cidr_blocks = var.cidr_blocks_for_ingress_security_group_80
+    security_group_id = aws_security_group.wordpress-sg.id
+  }
+resource "aws_security_group_rule" "port_3306_open" {
+    
+    type = "ingress"
+    from_port = var.aws_security_group_rule_from_3306
+    to_port = var.aws_security_group_rule_to_3306
+    protocol = "tcp"
+    cidr_blocks = var.cidr_blocks_for_ingress_security_group_3306
+    security_group_id = aws_security_group.wordpress-sg.id
+  }
+
 
     
