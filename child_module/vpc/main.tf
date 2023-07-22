@@ -1,3 +1,5 @@
+
+####################VPC##################
 resource "aws_vpc" "wordpress_vpc" {
   cidr_block       = var.vpc_cidr
 
@@ -6,6 +8,7 @@ resource "aws_vpc" "wordpress_vpc" {
     
   }
 }
+################PUBLIC SUBNET#############
 resource "aws_subnet" "public_subnet_1" {
   vpc_id = aws_vpc.wordpress_vpc.id
   cidr_block = var.public_subnet_cidr_1
