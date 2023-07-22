@@ -33,7 +33,7 @@ resource "aws_subnet" "public_subnet_3" {
     Name = "public_subnet_3"
   }
   
-  
+  ################PRIVATE SUBNETS###############
 }
 resource "aws_subnet" "private_subnet_1" {
   vpc_id = aws_vpc.wordpress_vpc.id
@@ -60,6 +60,7 @@ resource "aws_subnet" "private_subnet_3" {
   }
   
 }
+##################### INTERNET GATEWAY ###################
 resource "aws_internet_gateway" "wordpress_internetgateway" {
   vpc_id = aws_vpc.wordpress_vpc.id
   tags = {
