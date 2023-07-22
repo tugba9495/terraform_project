@@ -110,8 +110,7 @@ resource "aws_route_table" "private_route_table" {
     }
   )
 }
-
-
+##################### INTERNET GATEAWAY ################
 
 
 resource "aws_nat_gateway" "wordpress_nat_gateway" {
@@ -123,11 +122,11 @@ resource "aws_nat_gateway" "wordpress_nat_gateway" {
     Name = "wordpres_natgateway"
   }
 }
+##################### ELASTIC IP ##################
 resource "aws_eip" "elastic_ip" {
-  
   domain = "vpc"
 }
-
+#################### PRIVATE ROUTE TABLE ASSOCIATION #############
 resource "aws_route_table_association" "private_subnet_1" {
   subnet_id      = aws_subnet.private_subnet_1.id
   route_table_id = aws_route_table.private_route_table.id
