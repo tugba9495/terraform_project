@@ -1,3 +1,5 @@
+################ EC2 INSTANCE ############
+
 resource "aws_instance" "wordpress_server_instance" {
     ami = data.aws_ami.amazon_linux_2023_ami.id
     key_name = var.key_name
@@ -12,12 +14,14 @@ resource "aws_instance" "wordpress_server_instance" {
    
     )
   }
+  ################# SECURITY GROUP ###############
   resource "aws_security_group" "wordpress-sg" {
     name = "allow_ssh_for_wordpress_sg"
     description = "open ports 22 to your local ip"
     # vpc_id = data.terraform_remote_state.vpc_id.outputs.vpc_id
 
   }
+  ################### SECURITY GROUP INGRESS RULE FOR 22 #############
   resource "aws_security_group_rule" "port_22_open" {
     
     type = "ingress"
@@ -25,8 +29,9 @@ resource "aws_instance" "wordpress_server_instance" {
     to_port = var.aws_security_group_rule_to_port_22
     protocol = "tcp"
     cidr_blocks = var.cidr_block_for_ingress_security_group_22
-    security_group_id = aws_security_group.wordpress-sg.id
+    security_group_id = aws_security_group.wordpress-sg.id  
   }
+  ######################### SECURITY GROUP INGRESS RULE FOR 80 ###########
   resource "aws_security_group_rule" "port_80_open" {
     
     type = "ingress"
@@ -36,6 +41,7 @@ resource "aws_instance" "wordpress_server_instance" {
     cidr_blocks = var.cidr_blocks_for_ingress_security_group_80
     security_group_id = aws_security_group.wordpress-sg.id
   }
+   ######################### SECURITY GROUP INGRESS RULE FOR 3306 ###########
 resource "aws_security_group_rule" "port_3306_open" {
     
     type = "ingress"
