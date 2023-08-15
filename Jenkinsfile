@@ -1,7 +1,7 @@
 def jenkinsid = slackUserIdFromEmail('tuba_7655@icloud.com')
 
 def getEnvironment() {
-    def validEnvironments = ['vpc', 'webserver' 'rds']
+    def validEnvironments = ['vpc', 'webserver', 'rds'] // Corrected: Added missing comma
     for (env in validEnvironments) {
         if (env in params.ENVIRONMENT) {
             return env
@@ -11,8 +11,8 @@ def getEnvironment() {
 }
 
 def getStateFile(environment, command) {
-    def action = command == "apply" ? "webserver" : "vpc" : "rds"
-    return "terraform_state/${environment}/terraform_${action}.tfstate"
+    def action = command == "apply" ? (environment == "rds" ? "rds" : "webserver") : "vpc"
+    return "terraform_state/${environment}/${action}/terraform_${environment}_${action}.tfstate"
 }
 
 def runTerraformCommand(command) {
@@ -31,7 +31,7 @@ pipeline {
             name: 'SELECT_CHOICE'
         )
         choice (
-            choices: ['vpc', 'webserver' , 'rds'],
+            choices: ['vpc', 'webserver', 'rds'], // Corrected: Added missing comma
             description: 'Select environment',
             name: 'ENVIRONMENT'
         )
@@ -60,7 +60,6 @@ pipeline {
                 }
             }
         }
-        
 
         stage('terraform apply') {
             when {
@@ -70,13 +69,13 @@ pipeline {
                 script {
                     def environment = getEnvironment()
                     dir("root_module/${environment}") {
-                        echo "Running terraform plan for ${environment.capitalize()} module"
+                        echo "Running terraform apply for ${environment.capitalize()} module"
                         sh 'terraform apply -auto-approve'
                     }
-                    
                 }
             }
         }
+        
         stage('terraform destroy') {
             when {
                 expression { params.SELECT_CHOICE == "destroy" }
@@ -85,10 +84,9 @@ pipeline {
                 script {
                     def environment = getEnvironment()
                     dir("root_module/${environment}") {
-                        echo "Running terraform plan for ${environment.capitalize()} module"
+                        echo "Running terraform destroy for ${environment.capitalize()} module"
                         sh 'terraform destroy -auto-approve'
                     }
-                    
                 }
             }
         }
