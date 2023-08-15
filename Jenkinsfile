@@ -17,6 +17,28 @@ pipeline {
                 }
             }
         }
+        stage('terraform plan') {
+            steps {
+                 dir('root_module/vpc') {
+                    echo "running terraform plan"
+                    sh 'terraform plan'
+                 }
+                
+            }
+        }
+        stage('terraform fmt') {
+            steps { 
+                dir('root_module/vpc') {
+                    echo "running terraform fmt"
+                    sh 'terraform fmt'
+                }
+        
+    
+        }
+
+
+
+    
 
         
     }
