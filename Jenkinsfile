@@ -35,6 +35,9 @@ pipeline {
             }
         }
         stage('terraform apply') {
+            when {
+                expression { params.SELECT_CHOICE == "apply" }
+            }
             steps {
                 dir('root_module/vpc') {
                     echo "Running terraform apply"
@@ -43,6 +46,9 @@ pipeline {
             }
         }
         stage('terraform destroy') {
+            when {
+                expression { params.SELECT_CHOICE == "destroy" }
+            }
             steps {
                 dir('root_module/vpc') {
                     echo "Running terraform destroy"
@@ -50,7 +56,6 @@ pipeline {
                 }
             }
         }
-        
     }
     post {
         always {
