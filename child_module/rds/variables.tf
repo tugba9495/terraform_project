@@ -53,4 +53,8 @@ variable "env" {
     default = "rds"
   
 }
+variable "subnet_ids" {
+  type    = list(string)
+ 
+}
 
