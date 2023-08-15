@@ -13,7 +13,11 @@ pipeline {
         stage('terraform init') {
             steps {
                 dir('root_module/vpc') {
-                    echo "Running terraform init"
+                    echo "Running terraform init for VPC module"
+                    sh 'terraform init -upgrade'
+                }
+                dir('root_module/webserver') {
+                    echo "Running terraform init for Webserver module"
                     sh 'terraform init -upgrade'
                 }
             }
@@ -21,7 +25,11 @@ pipeline {
         stage('terraform plan') {
             steps {
                 dir('root_module/vpc') {
-                    echo "Running terraform plan"
+                    echo "Running terraform plan for VPC module"
+                    sh 'terraform plan'
+                }
+                dir('root_module/webserver') {
+                    echo "Running terraform plan for Webserver module"
                     sh 'terraform plan'
                 }
             }
@@ -29,7 +37,11 @@ pipeline {
         stage('terraform fmt') {
             steps {
                 dir('root_module/vpc') {
-                    echo "Running terraform fmt"
+                    echo "Running terraform fmt for VPC module"
+                    sh 'terraform fmt'
+                }
+                dir('root_module/webserver') {
+                    echo "Running terraform fmt for Webserver module"
                     sh 'terraform fmt'
                 }
             }
@@ -40,7 +52,11 @@ pipeline {
             }
             steps {
                 dir('root_module/vpc') {
-                    echo "Running terraform apply"
+                    echo "Running terraform apply for VPC module"
+                    sh 'terraform apply --auto-approve'
+                }
+                dir('root_module/webserver') {
+                    echo "Running terraform apply for Webserver module"
                     sh 'terraform apply --auto-approve'
                 }
             }
@@ -51,7 +67,11 @@ pipeline {
             }
             steps {
                 dir('root_module/vpc') {
-                    echo "Running terraform destroy"
+                    echo "Running terraform destroy for VPC module"
+                    sh 'terraform destroy --auto-approve'
+                }
+                dir('root_module/webserver') {
+                    echo "Running terraform destroy for Webserver module"
                     sh 'terraform destroy --auto-approve'
                 }
             }
