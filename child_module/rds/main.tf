@@ -24,11 +24,16 @@ resource "aws_security_group" "database-sg" {
     name = "allow_ingress_3306_database_sg"
     description = "allow ingress 3306"
     
-    # ... (other attributes)
+  
 }
 
 resource "aws_security_group_rule" "database_3306_open" {
-    # ... (other attributes)
+    type = "ingress"
+    from_port = var.aws_security_group_rule_from_3306
+    to_port = var.aws_security_group_rule_to_3306
+    protocol = "tcp"
+    cidr_blocks = var.cidr_blocks_for_ingress_security_group_3306
+ 
 
-    security_group_id = aws_security_group.database-sg.id  # Corrected here
+    security_group_id = aws_security_group.database-sg.id  
 }
