@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('terraform init') {
             steps {
-                dir('child_module/vpc') {
+                dir('vpc') {
                     echo "Running terraform init"
                     sh 'terraform init -upgrade'
                 }
