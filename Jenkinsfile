@@ -60,7 +60,7 @@ pipeline {
                 }
             }
         }
-        // ... (other stages remain the same)
+        
 
         stage('terraform apply') {
             when {
@@ -68,7 +68,12 @@ pipeline {
             }
             steps {
                 script {
-                    runTerraformCommand("apply")
+                    def environment = getEnvironment()
+                    dir("root_module/${environment}") {
+                        echo "Running terraform plan for ${environment.capitalize()} module"
+                        sh 'terraform apply -auto-approve'
+                    }
+                    
                 }
             }
         }
