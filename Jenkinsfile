@@ -42,6 +42,15 @@ pipeline {
                 }
             }
         }
+        stage('terraform destroy') {
+            steps {
+                dir('root_module/vpc') {
+                    echo "Running terraform destroy"
+                    sh 'terraform destroy --auto-approve'
+                }
+            }
+        }
+        
     }
     post {
         always {
