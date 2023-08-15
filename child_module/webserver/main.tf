@@ -17,6 +17,7 @@ resource "aws_instance" "wordpress_server_instance" {
 ################# SECURITY GROUP ###############
 resource "aws_security_group" "wordpress-sg" {
     name = "allow_ssh_for_wordpress_sg"
+    vpc_id =  "vpc-00ee488fe317439e7"
     description = "open ports 22 to your local ip"
 }
 
