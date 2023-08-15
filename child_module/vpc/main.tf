@@ -48,7 +48,7 @@ resource "aws_subnet" "private_subnet_1" {
 resource "aws_subnet" "private_subnet_2" {
   vpc_id = aws_vpc.wordpress_vpc.id
   cidr_block = var.private_subnet_cidr_2
-  availability_zone = "us-west-1b"
+  availability_zone = "us-west-1c"
   tags = {
     Name = "private_subnet_2"
   }
