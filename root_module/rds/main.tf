@@ -7,7 +7,7 @@ module "db" {
     allocated_storage = 5
     db_name = "testdb"
     username = "tugba"
-    password = "123"
+    password = "Tugba123@"
     port = "3306"
     vpc_security_group_ids = ["sg-03ea08d89fa7cc5c3"]
     db_subnet_group_name = "rds_subnet_group"
