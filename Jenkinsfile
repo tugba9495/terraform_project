@@ -37,6 +37,29 @@ pipeline {
         )
     }
     stages {
+        stage('terraform init') {
+            steps {
+                script {
+                    def environment = getEnvironment()
+                    dir("root_module/${environment}") {
+                        echo "Running terraform init for ${environment.capitalize()} module"
+                        sh 'terraform init -upgrade'
+                    }
+                }
+            }
+        }
+
+        stage('terraform plan') {
+            steps {
+                script {
+                    def environment = getEnvironment()
+                    dir("root_module/${environment}") {
+                        echo "Running terraform plan for ${environment.capitalize()} module"
+                        sh 'terraform plan'
+                    }
+                }
+            }
+        }
         // ... (other stages remain the same)
 
         stage('terraform apply') {
