@@ -44,10 +44,10 @@ variable "port" {
     type = string
   
 }
-variable "subnet_ids" {
-    type = list(string)
+# variable "subnet_ids" {
+#     type = list(string)
   
-}
+# }
 variable "env" {
     type = string
     default = "rds"
