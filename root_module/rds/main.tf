@@ -9,7 +9,7 @@ module "db" {
     username = "tugba"
     password = "Tugba12395"
     port = "3306" #
-    vpc_security_group_ids = ["sg-03ea08d89fa7cc5c3"]
+  
     db_subnet_group_name = "rds_subnet_group"
     # subnet_ids = ["subnet-04cdf733a65186815"]
 
@@ -18,6 +18,5 @@ module "db" {
 
     
 
-    
   
 }
