@@ -23,6 +23,7 @@ resource "aws_db_instance" "database" {
 resource "aws_security_group" "database-sg" {
     name = "allow_ingress_3306_database_sg"
     description = "allow ingress 3306"
+    vpc_id = "vpc-00ee488fe317439e7"
     
   
 }
