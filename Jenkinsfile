@@ -38,7 +38,7 @@ pipeline {
             steps {
                 dir('root_module/vpc') {
                     echo "Running terraform apply"
-                    sh 'terraform apply -y'
+                    sh 'terraform apply --auto-approve'
                 }
             }
         }
