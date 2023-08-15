@@ -1,12 +1,13 @@
+def jenkinsid = slackUserIdFromEmail('tuba_7655@icloud.com')
+
 pipeline {
     agent any
     parameters {
         choice (
-            choices: ['apply','destroy'],
+            choices: ['apply', 'destroy'],
             description: 'terraform choice',
             name: 'SELECT_CHOICE'
         )
-    
     }
     stages {
         stage('terraform init') {
@@ -19,27 +20,41 @@ pipeline {
         }
         stage('terraform plan') {
             steps {
-                 dir('root_module/vpc') {
-                    echo "running terraform plan"
+                dir('root_module/vpc') {
+                    echo "Running terraform plan"
                     sh 'terraform plan'
-                 }
-                
+                }
             }
         }
         stage('terraform fmt') {
-            steps { 
+            steps {
                 dir('root_module/vpc') {
-                    echo "running terraform fmt"
+                    echo "Running terraform fmt"
                     sh 'terraform fmt'
                 }
-        
-    
+            }
         }
-
-
-
-    
-
-        
+        stage('terraform apply') {
+            steps {
+                dir('root_module/vpc') {
+                    echo "Running terraform apply"
+                    sh 'terraform apply'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo '### Clean Workplaces ###'
+            cleanWs()
+        }
+        success {
+            echo "Pipeline executed successfully!"
+            slackSend(color: "good", message: "<$jenkinsid> Terraform configuration is successful")
+        }
+        failure {
+            echo "Pipeline execution failed!"
+            slackSend(color: "danger", message: "<$jenkinsid> Terraform configuration is not successful")
+        }
     }
 }
