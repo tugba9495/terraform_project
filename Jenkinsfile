@@ -10,13 +10,14 @@ def getEnvironment() {
     error "Invalid environment specified: ${params.ENVIRONMENT}"
 }
 
-def getStateFile(environment) {
-    return "terraform_state/terraform_${environment}.tfstate"
+def getStateFile(environment, command) {
+    def action = command == "apply" ? "webserver" : "vpc"
+    return "terraform_state/terraform_${action}.tfstate"
 }
 
 def runTerraformCommand(command) {
     def environment = getEnvironment()
-    def stateFile = getStateFile(environment)
+    def stateFile = getStateFile(environment, command)
     echo "Running terraform $command for ${environment.capitalize()} module"
     sh "terraform $command -auto-approve -state=$stateFile"
 }
