@@ -25,7 +25,7 @@ variable "password" {
   
 }
 variable "db_subnet_group_name" {
-    type = bool
+    type = string
   
 }
 variable "vpc_security_group_ids" {
