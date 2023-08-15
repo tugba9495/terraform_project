@@ -4,7 +4,7 @@ terraform {
     key = "vpc/terraform.tfstate"
     region = "us-west-1"
     
-    dynamodb_table = "cloudformation-template"
+    # dynamodb_table = "cloudformation-template"
     
   }
 }
