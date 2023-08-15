@@ -11,7 +11,7 @@ resource "aws_db_instance" "database" {
     db_subnet_group_name = var.db_subnet_group_name
     # subnet_ids = var.subnet_ids
     vpc_security_group_ids = var.vpc_security_group_ids
-    publicly_accessible    = true
+    publicly_accessible    = false
     skip_final_snapshot    = true
     iam_database_authentication_enabled = true
     tags = merge(local.common_tags,{
