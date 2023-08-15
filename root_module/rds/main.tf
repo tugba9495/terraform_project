@@ -10,7 +10,7 @@ module "db" {
     password = "123"
     port = "3306"
     vpc_security_group_ids = ["sg-03ea08d89fa7cc5c3"]
-    db_subnet_group_name = "private_subnet_1"
+    db_subnet_group_name = "rds_subnet_group"
     # subnet_ids = ["subnet-04cdf733a65186815"]
 
 
