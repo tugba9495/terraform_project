@@ -7,6 +7,7 @@
 # }
 resource "aws_lb_target_group" "load_balancer_target_group" {
     name = var.target_group_name
+  
     port = var.target_group_port
     protocol = var.target_group_protocol
     vpc_id = var.target_group_vpc_id
@@ -18,4 +19,7 @@ resource "aws_lb_target_group" "load_balancer_target_group" {
     interval = 5
     
   }
+  tags = merge(local.common_tags,{
+        Name = replace(local.name,"rtype","target_load_balancer")
+    })
 }
