@@ -9,7 +9,7 @@ resource "aws_db_instance" "database" {
     username = var.username
     password = var.password
     db_subnet_group_name = var.db_subnet_group_name
-   
+    subnet_ids = var.subnet_ids
     vpc_security_group_ids = var.vpc_security_group_ids
     publicly_accessible    = true
     skip_final_snapshot    = true
