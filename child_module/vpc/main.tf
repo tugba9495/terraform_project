@@ -38,6 +38,7 @@ resource "aws_subnet" "public_subnet_3" {
 resource "aws_subnet" "private_subnet_1" {
   vpc_id = aws_vpc.wordpress_vpc.id
   cidr_block = var.private_subnet_cidr_1
+  availability_zone = "us-west-1a"
   tags = {
     Name = "private_subnet_1"
   }
@@ -47,6 +48,7 @@ resource "aws_subnet" "private_subnet_1" {
 resource "aws_subnet" "private_subnet_2" {
   vpc_id = aws_vpc.wordpress_vpc.id
   cidr_block = var.private_subnet_cidr_2
+  availability_zone = "us-west-1b"
   tags = {
     Name = "private_subnet_2"
   }
@@ -54,6 +56,7 @@ resource "aws_subnet" "private_subnet_2" {
 }
 resource "aws_subnet" "private_subnet_3" {
   vpc_id = aws_vpc.wordpress_vpc.id
+  availability_zone = "us-west-1c"
   cidr_block = var.private_subnet_cidr_3
   tags = {
     Name = "private_subnet_3"
