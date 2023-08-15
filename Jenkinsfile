@@ -1,5 +1,26 @@
 def jenkinsid = slackUserIdFromEmail('tuba_7655@icloud.com')
 
+def getEnvironment() {
+    def validEnvironments = ['vpc', 'webserver']
+    for (env in validEnvironments) {
+        if (env in params.ENVIRONMENT) {
+            return env
+        }
+    }
+    error "Invalid environment specified: ${params.ENVIRONMENT}"
+}
+
+def getStateFile(environment) {
+    return "terraform_state/terraform_${environment}.tfstate"
+}
+
+def runTerraformCommand(command) {
+    def environment = getEnvironment()
+    def stateFile = getStateFile(environment)
+    echo "Running terraform $command for ${environment.capitalize()} module"
+    sh "terraform $command -auto-approve -state=$stateFile"
+}
+
 pipeline {
     agent any
     parameters {
@@ -8,29 +29,43 @@ pipeline {
             description: 'terraform choice',
             name: 'SELECT_CHOICE'
         )
+        choice (
+            choices: ['vpc', 'webserver'],
+            description: 'Select environment',
+            name: 'ENVIRONMENT'
+        )
     }
     stages {
         stage('terraform init') {
             steps {
-                dir('root_module/vpc') {
-                    echo "Running terraform init"
-                    sh 'terraform init -upgrade'
+                script {
+                    def environment = getEnvironment()
+                    dir("root_module/${environment}") {
+                        echo "Running terraform init for ${environment.capitalize()} module"
+                        sh 'terraform init -upgrade'
+                    }
                 }
             }
         }
         stage('terraform plan') {
             steps {
-                dir('root_module/vpc') {
-                    echo "Running terraform plan"
-                    sh 'terraform plan'
+                script {
+                    def environment = getEnvironment()
+                    dir("root_module/${environment}") {
+                        echo "Running terraform plan for ${environment.capitalize()} module"
+                        sh 'terraform plan'
+                    }
                 }
             }
         }
         stage('terraform fmt') {
             steps {
-                dir('root_module/vpc') {
-                    echo "Running terraform fmt"
-                    sh 'terraform fmt'
+                script {
+                    def environment = getEnvironment()
+                    dir("root_module/${environment}") {
+                        echo "Running terraform fmt for ${environment.capitalize()} module"
+                        sh 'terraform fmt'
+                    }
                 }
             }
         }
@@ -39,9 +74,8 @@ pipeline {
                 expression { params.SELECT_CHOICE == "apply" }
             }
             steps {
-                dir('root_module/vpc') {
-                    echo "Running terraform apply"
-                    sh 'terraform apply --auto-approve'
+                script {
+                    runTerraformCommand("apply")
                 }
             }
         }
@@ -50,9 +84,8 @@ pipeline {
                 expression { params.SELECT_CHOICE == "destroy" }
             }
             steps {
-                dir('root_module/vpc') {
-                    echo "Running terraform destroy"
-                    sh 'terraform destroy --auto-approve'
+                script {
+                    runTerraformCommand("destroy")
                 }
             }
         }
