@@ -5,7 +5,7 @@ module "db" {
     engine_version = "5.7"
     instance_class = "db.m5.large"
     allocated_storage = 5
-    db_name = "testdb"
+    db_name = "terraformdb"
     username = "tugba"
     password = "Tugba12395"
     port = "3306" #
