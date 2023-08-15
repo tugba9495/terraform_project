@@ -83,7 +83,12 @@ pipeline {
             }
             steps {
                 script {
-                    runTerraformCommand("destroy")
+                    def environment = getEnvironment()
+                    dir("root_module/${environment}") {
+                        echo "Running terraform plan for ${environment.capitalize()} module"
+                        sh 'terraform destroy -auto-approve'
+                    }
+                    
                 }
             }
         }
