@@ -22,7 +22,7 @@ resource "aws_lb" "load_balancer" {
   name               = var.load_balancer_name
   load_balancer_type = var.load_balancer_type
   internal           = false
-  subnets            = ["data.terraform_remote_state.vpc.outputs.private_subnet_3_id"]
+  subnets            = ["subnet-04cdf733a65186815","	subnet-0bdfdf401da190220"]
   # security_groups    = var.load_balancer_security_group
   enable_deletion_protection = false
   enable_http2       = true
