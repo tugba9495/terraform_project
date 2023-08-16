@@ -23,7 +23,7 @@ resource "aws_lb" "load_balancer" {
   load_balancer_type = var.load_balancer_type
   internal           = false
   subnets            = var.load_balancer_subnets
-  security_groups    = var.load_balancer_security_group
+  # security_groups    = var.load_balancer_security_group
   enable_deletion_protection = false
   enable_http2       = true
 }
