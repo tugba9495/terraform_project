@@ -25,10 +25,13 @@ variable "target_group_vpc_id" {
 
 variable "load_balancer_name" {
     type = string
+    default = "wordpress-load-balancer"
   
+
 }
 variable "load_balancer_type" {
     type = string
+    default = "application"
   
 }
 # variable "load_balancer_security_group" {
@@ -36,5 +39,6 @@ variable "load_balancer_type" {
 # }
 variable "load_balancer_subnets" {
     type = string
+    default = data.terraform_remote_state.aws_vpc.private_subnet_1_id
   
 }
