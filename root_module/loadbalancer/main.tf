@@ -11,7 +11,7 @@ source = "../../child_module/loadbalancer"
 load_balancer_name = "wordpress-load-balancer"
 load_balancer_type = "application"
 # load_balancer_subnets = 
-load_balancer_subnets = data.terraform_remote_state.vpc.outputs.private_subnet_1_id.private_subnet_3_id
+load_balancer_subnets = data.terraform_remote_state.vpc.outputs.private_subnet_1_id.
 
    
     
