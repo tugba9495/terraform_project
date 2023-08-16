@@ -93,18 +93,18 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            echo '### Clean Workplaces ###'
-            cleanWs()
-        }
-        success {
-            echo "Pipeline executed successfully!"
-            slackSend(color: "good", message: "<$jenkinsid> Terraform configuration is successful")
-        }
-        failure {
-            echo "Pipeline execution failed!"
-            slackSend(color: "danger", message: "<$jenkinsid> Terraform configuration is not successful")
-        }
-    }
+    // post {
+    //     always {
+    //         echo '### Clean Workplaces ###'
+    //         cleanWs()
+    //     }
+    //     success {
+    //         echo "Pipeline executed successfully!"
+    //         slackSend(color: "good", message: "<$jenkinsid> Terraform configuration is successful")
+    //     }
+    //     failure {
+    //         echo "Pipeline execution failed!"
+    //         slackSend(color: "danger", message: "<$jenkinsid> Terraform configuration is not successful")
+    //     }
+    // }
 }

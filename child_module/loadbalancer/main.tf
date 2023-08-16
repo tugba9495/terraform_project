@@ -1,10 +1,4 @@
-# resource "aws_alb" "load_balancer" {
-#     name = "wordpress-terraform-jenkins-lb"
-#     internal = false
-#     load_balancer_type = "application"
-#     security_groups = 
-  
-# }
+
 resource "aws_lb_target_group" "load_balancer_target_group" {
     name = var.target_group_name
   
@@ -22,4 +16,14 @@ resource "aws_lb_target_group" "load_balancer_target_group" {
   tags = merge(local.common_tags,{
         Name = replace(local.name,"rtype","target_load_balancer")
     })
+}
+
+resource "aws_lb" "load_balancer" {
+  name               = var.load_balancer_name
+  load_balancer_type = var.load_balancer_type
+  internal           = false
+  subnets            = var.load_balancer_subnets
+  security_groups    = var.load_balancer_security_group
+  enable_deletion_protection = false
+  enable_http2       = true
 }
