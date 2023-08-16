@@ -22,3 +22,19 @@ variable "target_group_protocol" {
 variable "target_group_vpc_id" {
   type = string
 }
+
+variable "load_balancer_name" {
+    type = string
+  
+}
+variable "load_balancer_type" {
+    type = string
+  
+}
+# variable "load_balancer_security_group" {
+#   type = list(string)
+# }
+variable "load_balancer_subnets" {
+    type = string
+  
+}
