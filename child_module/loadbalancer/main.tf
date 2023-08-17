@@ -97,3 +97,8 @@ resource "aws_lb_listener_rule" "wordpress_listener_rule" {
   
 }
 }
+resource "aws_lb_target_group_attachment" "example" {
+  target_group_arn = aws_lb_target_group.load_balancer_target_group.arn
+  target_id        = aws_instance.my_ec2_instance.id
+  port             = 80
+}
