@@ -67,9 +67,7 @@ resource "aws_lb_listener" "wordpress_listener" {
 
   default_action {
     type             = "fixed-response"
-    status_code      = "200"
-    content_type     = "text/plain"
-    message_body     = "OK"
+    
   }
 }
 resource "aws_lb_listener_rule" "wordpress_listener_rule" {
