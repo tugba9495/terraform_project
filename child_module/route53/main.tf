@@ -10,7 +10,7 @@ resource "aws_route53_record" "wordpress_a_record" {
   
   alias {
     name = "wordpress-load-balancer-1132891715.us-west-1.elb.amazonaws.com"
-    zone_id = "Z368ELLRRE2KJ0"
+    zone_id = "Z06378173MRGMPELQ4QTM"
     evaluate_target_health = true
   }
 
