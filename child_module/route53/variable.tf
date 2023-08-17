@@ -18,7 +18,3 @@ variable "aws_route53_record_type" {
 
   
 }
-variable "aws_route53_record_ttl" {
-  type = number
-  
-}
