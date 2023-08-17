@@ -59,3 +59,30 @@ resource "aws_security_group" "wordpress_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_lb_listener" "wordpress_listener" {
+  load_balancer_arn = aws_lb.load_balancer.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "fixed-response"
+    status_code      = "200"
+    content_type     = "text/plain"
+    message_body     = "OK"
+  }
+}
+resource "aws_lb_listener_rule" "wordpress_listener_rule" {
+  listener_arn = aws_lb_listener.wordpress_listener.arn
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.load_balancer_target_group.arn
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/"]
+  }
+}
