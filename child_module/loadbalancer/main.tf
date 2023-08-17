@@ -5,6 +5,7 @@ resource "aws_lb_target_group" "load_balancer_target_group" {
     port = var.target_group_port
     protocol = var.target_group_protocol
     vpc_id = var.target_group_vpc_id
+  
     
     health_check {
     port = 3306
@@ -97,8 +98,8 @@ resource "aws_lb_listener_rule" "wordpress_listener_rule" {
   
 }
 }
-resource "aws_lb_target_group_attachment" "attachment" {
-  target_group_arn = aws_lb_target_group.load_balancer_target_group.arn
-  target_id        = data.terraform_remote_state.ec2.outputs.aws_instance_id
-  port             = 80
-}
+# resource "aws_lb_target_group_attachment" "attachment" {
+#   target_group_arn = aws_lb_target_group.load_balancer_target_group.arn
+#   target_id        = data.terraform_remote_state.ec2.outputs.aws_instance_id
+#   port             = 80
+# }
