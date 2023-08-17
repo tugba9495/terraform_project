@@ -9,7 +9,7 @@ variable "wordpress_a_rescord_name" {
   # default     = "wordpress.tugba.link"
 
 }
-variable "aws_route53_zone" {
+variable "aws_route53_zone_id" {
   
   type = string
 }
