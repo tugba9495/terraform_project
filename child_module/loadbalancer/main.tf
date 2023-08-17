@@ -5,6 +5,7 @@ resource "aws_lb_target_group" "load_balancer_target_group" {
     port = var.target_group_port
     protocol = var.target_group_protocol
     vpc_id = var.target_group_vpc_id
+    
     health_check {
     port = 3306
     healthy_threshold = 6
@@ -77,6 +78,10 @@ resource "aws_lb_listener_rule" "wordpress_listener_rule" {
   action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.load_balancer_target_group.arn
+  }
+  condition {
+    field  = "path-pattern"
+    values = ["/"]
   }
 
   
