@@ -25,7 +25,7 @@ resource "aws_lb" "load_balancer" {
   
   subnets          = ["subnet-04cdf733a65186815","subnet-0bdfdf401da190220"]
 
-  security_groups    = ["aws_security_group.wordpress_sg.id"]
+  security_groups    = [aws_security_group.wordpress_sg.id]
   enable_deletion_protection = false
   enable_http2       = true
 }
