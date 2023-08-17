@@ -22,6 +22,7 @@ resource "aws_lb_target_group" "load_balancer_target_group" {
 resource "aws_lb" "load_balancer" {
   name               = var.load_balancer_name
   load_balancer_type = var.load_balancer_type
+  
   internal           = false
   
   subnets          = ["subnet-04cdf733a65186815","subnet-0bdfdf401da190220"]
@@ -64,7 +65,9 @@ resource "aws_security_group" "wordpress_sg" {
 resource "aws_lb_listener" "wordpress_listener" {
   load_balancer_arn = aws_lb.load_balancer.arn
   port              = 80
+  
   protocol          = "HTTP"
+  
 
   default_action {
     type             = "fixed-response"
@@ -79,6 +82,11 @@ resource "aws_lb_listener_rule" "wordpress_listener_rule" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.load_balancer_target_group.arn
   }
+  condition {
+    query_string {
+      key   = "health"
+      value = "check"
+    }
   
 
   
