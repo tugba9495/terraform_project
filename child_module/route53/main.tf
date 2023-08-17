@@ -1,7 +1,7 @@
-# data "aws_route53_zone" "selected" {
-#   name = "tugba.link."
+data "aws_route53_zone" "selected" {
+  name = "tugba.link."
 
-# }
+}
 resource "aws_route53_record" "wordpress_a_record" {
   zone_id = var.aws_route53_zone_id
   name    = var.wordpress_a_rescord_name
