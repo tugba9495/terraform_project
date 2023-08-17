@@ -8,7 +8,7 @@ resource "aws_instance" "wordpress_server_instance" {
     subnet_id = data.aws_subnet.subnet_id.id
     instance_type = var.instance_type
     vpc_security_group_ids = [aws_security_group.wordpress-sg.id]
-    user_data = file("user_data")
+    user_data = file("./user.sh")
     
     tags = merge(local.common_tags, {
         Name = "wordpress_server_instance"
