@@ -34,6 +34,7 @@ resource "aws_lb" "load_balancer" {
 resource "aws_security_group" "wordpress_sg" {
   name        = "wordpress-security-group"
   description = "Security group for WordPress servers"
+  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
 
   // Allow inbound traffic on ports 80 and 443
   ingress {
