@@ -4,7 +4,7 @@
 # }
 resource "aws_route53_record" "wordpress_a_record" {
   zone_id = var.aws_route53_zone_id
-  name    = var.wordpress_a_rescord
+  name    = var.wordpress_a_rescord_name
   type    = var.aws_route53_record_type
   ttl     = var.aws_route53_record_ttl
   
