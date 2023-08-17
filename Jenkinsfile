@@ -1,7 +1,7 @@
 def jenkinsid = slackUserIdFromEmail('tuba_7655@icloud.com')
 
 def getEnvironment() {
-    def validEnvironments = ['vpc', 'webserver', 'rds', 'loadbalancer']
+    def validEnvironments = ['vpc', 'webserver', 'rds', 'loadbalancer', 'route53']
     for (env in validEnvironments) {
         if (env in params.ENVIRONMENT) {
             return env
@@ -12,7 +12,7 @@ def getEnvironment() {
 
 def getStateFile(environment, command) {
     def action = command == "apply" ?
-                 (environment == "rds" ? "rds" : (environment == "loadbalancer" ? "loadbalancer" : "webserver")) :
+                 (environment == "rds" ? "rds" : (environment == "loadbalancer" ? "loadbalancer" : (environment == "route53" ? "route53" : "webserver"))) :
                  "vpc"
     return "terraform_state/${environment}/${action}/terraform_${environment}_${action}.tfstate"
 }
@@ -33,7 +33,7 @@ pipeline {
             name: 'SELECT_CHOICE'
         )
         choice (
-            choices: ['vpc', 'webserver', 'rds', 'loadbalancer'],
+            choices: ['vpc', 'webserver', 'rds', 'loadbalancer', 'route53'],
             description: 'Select environment',
             name: 'ENVIRONMENT'
         )
