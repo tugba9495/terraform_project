@@ -12,7 +12,7 @@ data "terraform_remote_state" "ec2" {
 
   config = {
     bucket = "terraform-aws-learning"
-    key = "webserver/terraform.tfstate"
+    key = "ec2/terraform.tfstate"
     region = "us-west-1"
   }
 }
