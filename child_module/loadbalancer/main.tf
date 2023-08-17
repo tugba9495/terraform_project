@@ -25,7 +25,36 @@ resource "aws_lb" "load_balancer" {
   
   subnets          = ["subnet-04cdf733a65186815","subnet-0bdfdf401da190220"]
 
-  # security_groups    = var.load_balancer_security_group
+  security_groups    = ["aws_security_group.wordpress_sg.id"]
   enable_deletion_protection = false
   enable_http2       = true
+}
+
+
+resource "aws_security_group" "wordpress_sg" {
+  name        = "wordpress-security-group"
+  description = "Security group for WordPress servers"
+
+  // Allow inbound traffic on ports 80 and 443
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  // Allow outbound traffic to all destinations
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
